@@ -1,0 +1,128 @@
+/* Finance div css */
+.finance-div {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    background-color: #f9f9f9;
+}
+
+.income-calc-div, .income-div{
+    display: flex;
+    justify-content: center;
+    align-items: left;
+    flex-direction: column;
+    width: 300px;
+    max-height: 60%;
+    padding: 10px;
+    margin: 20px auto;
+    border-radius: 8px;
+    background-color: white;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 1); 
+    color: #0f0439;
+}
+
+.income-calc-div select, .income-div select{
+    width: 200px;
+}
+
+#sales-table-container, #purchase-table-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    width: 95%;
+    max-height: 60%; 
+    background-color: white;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 1); 
+    padding: 20px;
+    border-radius: 8px;
+    color: #0f0439;
+    overflow-y: scroll;
+    margin: auto auto 30px auto;
+}
+
+#sales-data-table Table, #purchase-data-table Table{
+    width: 90%;
+    height: 80%;
+    border: 1px solid #0f0439;
+}
+
+#sales-data-table th, #sales-data-table td, #purchase-data-table th, #purchase-data-table td {
+    width: 10%;
+    height: 20%;
+    border: 1px solid #0f0439;
+    font-size: calc(0.5vh + 1vw - 1%);
+    padding: 5px;
+    text-align: center;
+}
+
+#purchase-table-container::-webkit-scrollbar, #sales-table-container::-webkit-scrollbar {
+    display: none;
+}
+
+
+/* Reports div css */
+.report-div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    width: 95%;
+    max-height: 90%; 
+    background-color: white;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 1); 
+    padding: 20px;
+    border-radius: 8px;
+    color: #0f0439;
+    overflow-y: auto;
+    margin: auto auto 30px auto;
+}
+
+/* Report search div css */
+.report-search-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 20px 0;
+}
+#report-search-input {
+    width: 300px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px 0 0 5px;
+    font-size: 16px;
+    outline: none;
+}
+#report-search-btn {
+    padding: 10px;
+    border: 1px solid #0f0439;
+    background-color: #0f0439;
+    color: white;
+    border-radius: 0 5px 5px 0;
+    cursor: pointer;
+    font-size: 16px;
+    width: 40px;
+    height: 40px;
+}
+#report-search-btn i {
+    font-size: 18px;
+}
+#report-search-btn:hover {
+    background-color: white;
+    color: #0f0439;
+}
+
+.report-table Table{
+    width: 90%;
+    height: 80%;
+    border: 1px solid #0f0439;
+}
+.report-table th, .report-table td{
+    width: 10%;
+    height: 20%;
+    border: 1px solid #0f0439;
+    font-size: calc(0.5vh + 1vw - 1%);
+    padding: 5px;
+    text-align: center;
+}
+

@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./css/index.css">
+    <link rel="stylesheet" href="./css/berries.css">
+    <link rel="stylesheet" href="./css/sales.css">
+    <link rel="stylesheet" href="./css/finance.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
+    <!-- Search icon -->
+    <link rel="icon" href="./images/BERRIES_logo-removebg.png" type="image/x-icon">
+    <title>PRIMEBERRY FACTORY</title>
+</head>
+
+<body>
+    <!-- JavaScript files links -->
+    <script src="./js/data.js" defer></script>
+    <script src="./js/farmers.js" defer></script>
+    <script src="./js/berries.js" defer></script>
+    <script src="./js/sales.js" defer></script>
+    <script src="./js/inventory.js" defer></script>
+    <script src="./js/finance.js" defer></script>
+    <script src="./js/report.js" defer></script>
+
+    <!-- Header section -->
+    <header>
+        <!-- Factory logo div -->
+        <div class="logo">
+        </div>
+        <!-- Factory name div -->
+        <div class="factory-name">
+            <p>PRIMEBERRY FACTORY MANAGEMENT SYSTEM</p>
+        </div>
+    </header>
+
+    <!-- Navigation button section -->
+    <nav>
+        <button class="nav-btn" id="farmer-btn">FARMERS</button>
+        <button class="nav-btn" id="package-btn">PACKAGING</button>
+        <button class="nav-btn" id="sales-btn">SALES</button>
+        <button class="nav-btn" id="inventory-btn">INVENTORY</button>
+        <button class="nav-btn" id="finance-btn">FINANCE</button>
+        <button class="nav-btn" id="report-btn">REPORTS</button>
+    </nav>
+
+    <!-- Farmers information section -->
+    <section id="farmer">
+
+        <!-- Search container div for search farmers -->
+        <div class="farmer-search-container" oninput="filterFarmers()">
+            <input type="text" id="farmer-search-input" placeholder="Search Farmer" />
+            <button id="farmer-search-btn">
+                <i class="fa fa-search"></i> <!-- Font Awesome icon -->
+            </button>
+        </div>
+
+        <!-- Div for displaying farmers dynamically -->
+        <div class="farmer-div"></div>
+        <br>
+
+        <!-- Adding new farmer button -->
+        <button class="add-farmer-btn" onclick="showAddFarmerForm()">ADD FARMER</button>
+
+        <!-- Showing purchase records button -->
+        <button class="purchase-records-btn" onclick="showPurchaseRecords()">PURCHASE RECORDS</button>
+
+        <!-- Form div for adding new farmer -->
+        <div id="add-farmer-form" style="display: none;">
+            <h3>~ Add New Farmer ~</h3>
+            <form id="new-farmer-form">
+                <label for="newFarmerFName">First Name:</label>
+                <input type="text" id="newFarmerFName" required>
+                <br>
+                <label for="newFarmerLName">Last Name:</label>
+                <input type="text" id="newFarmerLName" required>
+                <br>
+                <label for="newFarmerLocation">Location:</label>
+                <input type="text" id="newFarmerLocation" required>
+                <br>
+                <label for="newFarmerContact">Contact:</label>
+                <input type="text" id="newFarmerContact" required>
+                <br>
+                <label for="newFarmerBerries">Berries:</label>
+                <div id="newFarmerBerries">
+                    <!-- Checkbox list will added with javascript dynamically -->
+                </div>
+                <br>
+                <button type="button" onclick="addNewFarmer()" class="sc-popup-btn">Save</button>
+                <button type="button" onclick="hideAddFarmerForm()" class="sc-popup-btn">Cancel</button>
+            </form>
+        </div>
+
+        <!-- Popup div for showing general purchase records -->
+        <div id="popup-purchase-records-div" style="display: none;">
+            <!-- Title for the popup div -->
+            <div class="popup-title">
+                <h2 id="popup-title">~ PURCHASE RECORDS ~</h2>
+                <button onclick="hidePurchaseRecords()" class="close-popup-btn">X</button>
+            </div>
+
+            <!-- Search container div for purchase records -->
+            <div class="purchase-search-container" oninput="searchPurchaseRecords()">
+                <input type="text" id="purchase-record-input" placeholder="Search Farmer" />
+                <button id="purchase-search-btn">
+                    <i class="fa fa-search"></i> <!-- Font Awesome icon -->
+                </button>
+            </div>
+
+            <!-- Div for choosing time range for displaying purchse records -->
+            <div>
+                <label for="time-range">Select Time Range:</label>
+                <select id="time-range" onchange="filterByTimeRange()">
+                    <option value="all">All Records</option>
+                    <option value="daily">Daily</option>
+                    <option value="weekly">Weekly</option>
+                    <option value="monthly">Monthly</option>
+                    <option value="yearly">Yearly</option>
+                </select>
+            </div>
+
+            <!-- Table for listing purchase records -->
+            <table id="purchase-records-table"></table>
+        </div>
+    </section>
+
+    <!-- Packaging section -->
+    <section class="hidden" id="package">
+        <!--Div for showing packaging alerts-->
+        <button onclick="showAlerts()" class="alert-btn">Check Alerts</button>
+        <div id="alert-info"></div>
+
+        <!-- Div for displaying berries dynamically -->
+        <div class="berry-div"></div>
+    </section>
+
+    <!-- Sales section -->
+    <section class="hidden" id="sales">
+        <!-- Div for getting cutomer information -->
+        <div id="customer-info">
+            <h3>Customer Information</h3>
+            <br>
+            <label for="customer-name">Customer Name:</label>
+            <input type="text" id="customer-name" placeholder="Enter your name">
+            <br>
+            <label for="customer-contact">Contact Number:</label>
+            <input type="text" id="customer-contact" placeholder="Enter your contact number">
+            <br>
+            <label for="customer-address">Shipping Address:</label>
+            <textarea id="customer-address" placeholder="Enter your shipping address"></textarea>
+            <br>
+            <br>
+            <button id="clear-customer-form" class="sc-btn">Clear</button>
+        </div>
+        <br>
+
+        <!-- Div for displaying berries dynamically -->
+        <div class="category-sales-div"></div>
+
+        <!-- Button for open sales records div -->
+        <button id="show-sales-records-btn" onclick="showSalesRecords()">Show Sales Records</button>
+
+        <!-- Popup Div for showing sales records -->
+        <div id="popup-sales-records-div" style="display: none;">
+
+            <!-- Search input div for searching sales -->
+            <div class="sales-search-container" oninput="filterSales()">
+                <input type="text" id="sales-search-input" placeholder="Search Sales" />
+                <button id="sales-search-btn">
+                    <i class="fa fa-search"></i> <!-- Font Awesome icon -->
+                </button>
+            </div>
+
+            <!-- Div for showing time range options -->
+            <div class="sales-time-range">
+                <label for="time-range">Select Time Range:</label>
+                <select id="sales-time-range" onchange="updateSalesRecords()">
+                    <option value="all">All Sales</option>
+                    <option value="daily">Daily Sales</option>
+                    <option value="weekly">Weekly Sales</option>
+                    <option value="monthly">Monthly Sales</option>
+                    <option value="yearly">Yearly Sales</option>
+                </select>
+            </div>
+            <br>
+
+            <!-- Table for showing sales records -->
+            <table id="sales-records-table"></table>
+            <br>
+            <!-- Button for closing sales rocords div-->
+            <button id="close-sales-records-btn" onclick="closeSalesRecords()">Close</button>
+        </div>
+    </section>
+
+    <!-- Inventory section -->
+    <section class="hidden" id="inventory">
+
+        <!--Div for showing inventory alerts-->
+        <button onclick="showInventoryAlerts()" class="alert-btn">Check Alerts</button>
+        <div id="inventory-alert-info"></div>
+
+        <!-- Div for showing total stock information -->
+        <button id="calculate-btn" class="alert-btn">Stock Inventory Show</button>
+        <div id="inventory-sales-output"></div>
+
+        <!-- Div for showing inventory informations -->
+        <div class="inventory-div"></div>
+    </section>
+
+    <!-- Finance section -->
+    <section class="hidden" id="finance">
+
+        <!-- Financia summary div-->
+        <div class="income-calc-div">
+            <h1> Financial Summary </h1>
+            <br>
+            <label for="time-range">Select Time Range:</label>
+            <select id="financeTimePeriod" onchange="calculateIncomeFinancials()">
+                <option value="total">Total</option>
+                <option value="daily">Daily</option>
+                <option value="weekly">Weekly</option>
+                <option value="monthly">Monthly</option>
+                <option value="yearly">Yearly</option>
+            </select>
+            <br>
+            <div id="financial-summary">
+                <!-- Dinamik veri buraya gelecek -->
+            </div>
+        </div>
+
+        <!-- Listing sales information div for financial summary -->
+        <div id="sales-table-container">
+            <h1>~ Sale Records ~</h1>
+            <br>
+            <table id="sales-data-table">
+                <thead>
+                    <tr>
+                        <th>Order ID</th>
+                        <th>Date</th>
+                        <th>Customer Name</th>
+                        <th>Contact</th>
+                        <th>Address</th>
+                        <th>Category</th>
+                        <th>Quantity</th>
+                        <th>Total Price</th>
+                        <th>Status</th>
+                        <th>KDV</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Sales information will added here dynamically -->
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Listing purchase information for financial summary-->
+        <div id="purchase-table-container">
+            <h1>~ Purchase Records ~</h1>
+            <br>
+            <table id="purchase-data-table">
+                <thead>
+                    <tr>
+                        <th>Purchase ID</th>
+                        <th>Date</th>
+                        <th>Farmer ID</th>
+                        <th>Berry ID</th>
+                        <th>Quantity (kg)</th>
+                        <th>Price per kg ($)</th>
+                        <th>Total Cost ($)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Purchase information will added here dynamically -->
+                </tbody>
+            </table>
+        </div>
+    </section>
+
+    <!-- Report section -->
+    <section class="hidden" id="report">
+
+        <!-- Search input div for searching reports -->
+        <div class="report-search-container" oninput="filterReports()">
+            <input type="text" id="report-search-input" placeholder="Search Reports" />
+            <button id="report-search-btn">
+                <i class="fa fa-search"></i> <!-- Font Awesome icon -->
+            </button>
+        </div>
+
+        <!-- Listing net profit information div for report section-->
+        <div class="income-div">
+            <h1> Financial Summary </h1>
+            <br>
+            <label for="time-range">Select Time Range:</label>
+            <select id="timePeriod" onchange="calculateFinancials()">
+                <option value="total">Total</option>
+                <option value="daily">Daily</option>
+                <option value="weekly">Weekly</option>
+                <option value="monthly">Monthly</option>
+                <option value="yearly">Yearly</option>
+            </select>
+            <br>
+            <div id="income-report-div">
+                <!-- Added with javascript dynamically -->
+            </div>
+        </div>
+
+        <!-- Div for showing report informations table -->
+        <div class="report-div">
+            <table class="report-table">
+                <!-- Added with javascript dynamically -->
+            </table>
+        </div>
+    </section>
+
+    <!-- Footer section -->
+    <footer>
+        <section class="footer-factory-div">
+            <!--Factory logo part-->
+            <a href="index.html">
+                <div id="footer-logo">
+                </div>
+            </a>
+            <!--Factory name part-->
+            <div class="factory-name" id="footer-factory-name">
+                <a href="index.html">PRIMEBERRY FACTORY <br> Copyright © PrimeBerry - 1923</a>
+            </div>
+        </section>
+        <section class="footer-social-media-div">
+            <!-- The media icons are set as background images of these divs to provide
+          a clean and responsive design. -->
+            <div class="media-icon" id="instagram"></div>
+            <div class="media-icon" id="facebook"></div>
+            <div class="media-icon" id="linkedin"></div>
+            <div class="media-icon" id="twitter"></div>
+        </section>
+    </footer>
+</body>
+
+</html>
